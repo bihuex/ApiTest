@@ -1,7 +1,9 @@
 package com.testapi.test;
 
+
 import com.google.common.collect.Maps;
 import com.testapi.utils.HttpClientUtils;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.HashMap;
@@ -16,9 +18,16 @@ public class TestApi {
 
 
     /**
-     * 接口秘钥
+     * 接口秘钥AccessKey
      */
     static String AccessKey = "825b8ef5e90d8d01db16904dc91fc325";
+
+    /**
+     * 测试环境AccessKey1
+     */
+    static String AccessKey1 = "f10fcb0637a24695b0ae0b8acbec4a53";
+
+
     /**
      * 加密密钥
      */
@@ -53,18 +62,18 @@ public class TestApi {
          * 1、定义访问接口地址
          */
 
-        //String url = "http://show.bihuex.com/api-web/";
-        String url = "https://home.bihuex.com/api-web/";
-        String apiUrl = "api/v2/user/getMyTradeLog";
+       String url = "https://show.bihuex.com/api-web/";
+       // String url = "https://home.bihuex.com/api-web/";
+        String apiUrl = "api/v2/user/queryOrder";
 
         /**
          * 2、根据所需参数进行拼接
          */
         HashMap<String, String> params = Maps.newHashMap();
-        params.put("accessKey", AccessKey);
+        params.put("accessKey", AccessKey1);
         params.put("timestamp", String.valueOf(System.currentTimeMillis()));
         //params.put("orderId","1643977501");
-        params.put("market", "sse_usdt");
+        //params.put("market", "sse_usdt");
         //params.put("pageSize","10");
         //params.put("pageNumber","1");
         //params.put("type","1");
@@ -74,7 +83,7 @@ public class TestApi {
         //params.put("token","mobie_token_rrdrxxmxrutbfmzzkfyjbwxgymloqzhxtxdjvsucxgdfwjrvfwpawoduncpffbnw");
         //params.put("remark","测试积分减少");
         //params.put("timestamp","1551860557901");
-        //params.put("balance","10");
+        //arams.put("balance","10");
         //params.put("accountApiKey","1c761c026c34698b9f69df224c479c7f");
 
         /**
@@ -82,10 +91,10 @@ public class TestApi {
          */
         System.out.println("====生成签名开始====：" + String.valueOf(System.currentTimeMillis()));
         String sign = getSignature(params, Secret);
-        System.out.println("====验签前====" + sign);
+        System.out.println("====验签前" + sign);
         System.out.println("====生成签名结束====：" + String.valueOf(System.currentTimeMillis()));
         params.put("sign", sign);
-        System.out.println("====验签后====" + sign);
+        System.out.println(sign);
         StringBuffer buff = new StringBuffer();
         buff.append(url);
         buff.append(apiUrl);
