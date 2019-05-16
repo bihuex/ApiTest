@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <property name="default_pattern" value="%date [%thread] %-5level %logger{80} - %msg%n" />
+  <property name="charset" value="UTF-8" />
+  <property name="log.level" value="ERROR"/>
+  <property name="log.basedir" value="/data/logs"/>
+  <property name="log.appender" value="STDOUT"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${default_pattern}</pattern>
+      <charset>${charset}</charset>
+    </encoder>
+  </appender>
+
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${log.basedir}/home_web.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${log.basedir}/home_web.log.%d{yyyy-MM-dd}</fileNamePattern>
+    </rollingPolicy>
+    <encoder>
+      <pattern>${default_pattern}</pattern>
+      <charset>${charset}</charset>
+    </encoder>
+  </appender>
+
+  <logger name="com.mine">
+    <level value="${log.level}" />
+  </logger>
+
+  <logger name="org.springframework">
+    <level value="WARN" />
+  </logger>
+
+  <logger name="org.hibernate">
+    <level value="${log.level}" />
+  </logger>
+
+  <logger name="java.sql">
+    <level value="${log.level}" />
+  </logger>
+
+  <!--
+    Example for output mybatis sql and parameters
+
+    See more from
+    http://stackoverflow.com/questions/21718097/how-to-configure-logback-for-mybatis-to-print-my-sql
+
+    # Here name is the value of 'namespace' attribute of the target sql mapper-*.xml file.
+    <logger name="cashDAO" level="TRACE"/>
+  -->
+
+  <root>
+    <level value="INFO" />
+    <appender-ref ref="${log.appender}" />
+  </root>
+</configuration>
